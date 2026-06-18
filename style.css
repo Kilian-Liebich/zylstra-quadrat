@@ -99,11 +99,11 @@ justify-content: center;
 align-items: center;
 display: flex;
 box-sizing: border-box;
-transition: opacity 0.25s ease;
+transition: font-size 0.2s ease;
 }
 
 .site-header__cta:hover {
-opacity: 0.6;
+font-size: 1.05em;
 }
 
 .site-header__menu {
@@ -121,11 +121,11 @@ cursor: pointer;
 font-family: inherit;
 font-size: .95em;
 line-height: 1;
-transition: opacity 0.25s ease;
+transition: font-size 0.2s ease;
 }
 
 .site-header__menu:hover {
-opacity: 0.6;
+font-size: 1.1em;
 }
 
 .site-header__menu-icon {
@@ -399,11 +399,11 @@ justify-content: center;
 align-items: center;
 display: flex;
 box-sizing: border-box;
-transition: opacity 0.25s ease;
+transition: font-size 0.2s ease;
 }
 
 .hero-showcase__cta:hover {
-opacity: 0.6;
+font-size: 1.05em;
 }
 
 .hero-showcase__cta.is-filled {
