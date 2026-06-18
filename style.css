@@ -94,10 +94,17 @@ font-size: .95em;
 font-weight: 500;
 line-height: 1;
 letter-spacing: -.01em;
+white-space: nowrap;
 justify-content: center;
 align-items: center;
 display: flex;
 box-sizing: border-box;
+transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.site-header__cta:hover {
+background-color: #201d1d;
+color: #f4f4f4;
 }
 
 .site-header__menu {
@@ -115,6 +122,12 @@ cursor: pointer;
 font-family: inherit;
 font-size: .95em;
 line-height: 1;
+transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.site-header__menu:hover {
+background-color: #201d1d;
+color: #f4f4f4;
 }
 
 .site-header__menu-icon {
@@ -383,16 +396,28 @@ font-size: .95em;
 font-weight: 500;
 line-height: 1;
 letter-spacing: -.01em;
+white-space: nowrap;
 justify-content: center;
 align-items: center;
 display: flex;
 box-sizing: border-box;
+transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-showcase__cta:hover {
+background-color: rgba(244, 244, 244, 0.15);
 }
 
 .hero-showcase__cta.is-filled {
 color: #201d1d;
 background-color: #f4f4f4;
 border-color: rgba(32, 29, 29, 0.7);
+}
+
+.hero-showcase__cta.is-filled:hover {
+background-color: #201d1d;
+color: #f4f4f4;
+border-color: #201d1d;
 }
 
 .hero-showcase__bottom {
