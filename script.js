@@ -161,28 +161,19 @@ function initHeroLoadingAnimation() {
   }
 
   if (isScaleUp.length) {
-    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-    if (isDesktop) {
-      tl.fromTo(
-        isScaleUp,
-        {
-          width: "10em",
-          height: "10em",
-        },
-        {
-          width: "100vw",
-          height: "100vh",
-          duration: 2,
-        },
-        "< 0.5",
-      );
-    } else {
-      tl.to(
-        container.querySelector(".intro-reveal"),
-        { opacity: 0, duration: 0.5, ease: "power2.inOut" },
-        "< 0.5",
-      );
-    }
+    tl.fromTo(
+      isScaleUp,
+      {
+        width: "10em",
+        height: "10em",
+      },
+      {
+        width: "100vw",
+        height: "100vh",
+        duration: 2,
+      },
+      "< 0.5",
+    );
   }
 
   if (sliderNav.length) {
