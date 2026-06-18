@@ -246,8 +246,7 @@ visibility: hidden;
 }
 
 .hero-showcase.is-loading .hero-showcase__slider {
-opacity: 0;
-pointer-events: none;
+display: none;
 }
 
 .hero-showcase.is-loading .intro-reveal {
