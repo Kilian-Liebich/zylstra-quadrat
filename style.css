@@ -489,7 +489,7 @@ display: none;
 
 .hero-showcase__headline-wrap {
 top: auto;
-bottom: 14em;
+bottom: 17em;
 left: 1.5em;
 right: 1.5em;
 width: auto;
@@ -505,7 +505,7 @@ padding-left: 0;
 .hero-showcase__info {
 left: 1.5em;
 right: 1.5em;
-bottom: 5.5em;
+bottom: 8em;
 max-width: none;
 gap: 0.5em;
 }
