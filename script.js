@@ -225,37 +225,19 @@ function initHeroLoadingAnimation() {
 
   tl.call(
     function () {
-      const introReveal = container.querySelector(".intro-reveal");
-      const sliderEl = container.querySelector(".hero-showcase__slider");
       const firstImg = container.querySelector(
         ".hero-showcase__slide.is-active img",
       );
 
-      const doReveal = () => {
-        gsap
-          .timeline({
-            onComplete() {
-              container.classList.remove("is-loading");
-              gsap.set(sliderEl, { clearProps: "opacity" });
-              window.dispatchEvent(new CustomEvent("heroIntroComplete"));
-            },
-          })
-          .to(
-            introReveal,
-            { opacity: 0, duration: 0.3, ease: "power1.inOut" },
-            0,
-          )
-          .to(
-            sliderEl,
-            { opacity: 1, duration: 0.3, ease: "power1.inOut" },
-            0,
-          );
+      const finish = () => {
+        container.classList.remove("is-loading");
+        window.dispatchEvent(new CustomEvent("heroIntroComplete"));
       };
 
       if (firstImg && firstImg.decode) {
-        firstImg.decode().then(doReveal).catch(doReveal);
+        firstImg.decode().then(finish).catch(finish);
       } else {
-        doReveal();
+        finish();
       }
     },
     null,
