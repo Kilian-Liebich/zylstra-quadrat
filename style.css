@@ -99,11 +99,11 @@ justify-content: center;
 align-items: center;
 display: flex;
 box-sizing: border-box;
-transition: font-size 0.2s ease;
+transition: transform 0.2s ease;
 }
 
 .site-header__cta:hover {
-font-size: 1.05em;
+transform: scale(1.05);
 }
 
 .site-header__menu {
@@ -121,11 +121,11 @@ cursor: pointer;
 font-family: inherit;
 font-size: .95em;
 line-height: 1;
-transition: font-size 0.2s ease;
+transition: transform 0.2s ease;
 }
 
 .site-header__menu:hover {
-font-size: 1.1em;
+transform: scale(1.1);
 }
 
 .site-header__menu-icon {
@@ -160,7 +160,7 @@ transform: translateY(-0.4em) rotate(-45deg);
 }
 
 /* ─── FULLSCREEN NAV OVERLAY ───────────────────────────────────── */
-/* clip-path is driven entirely by GSAP (set via inline style) */
+/* clip-path initial hide via CSS; open/close animation driven by GSAP */
 .nav-overlay {
 position: fixed;
 inset: 0;
@@ -170,6 +170,7 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 background-color: #eaeaea;
+clip-path: inset(0 0 100% 100%);
 pointer-events: none;
 }
 
@@ -492,11 +493,11 @@ justify-content: center;
 align-items: center;
 display: flex;
 box-sizing: border-box;
-transition: font-size 0.2s ease;
+transition: transform 0.2s ease;
 }
 
 .hero-showcase__cta:hover {
-font-size: 1.05em;
+transform: scale(1.05);
 }
 
 .hero-showcase__cta.is-filled {

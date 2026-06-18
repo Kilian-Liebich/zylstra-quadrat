@@ -466,17 +466,14 @@ function initNav() {
   let isOpen = false;
   let animating = false;
 
-  // Returns inset() clip-path matching the burger button's bounding box
+  // Returns inset() clip-path matching the burger button's bounding box exactly
   function btnClipPath() {
     const r = btn.getBoundingClientRect();
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    // inset(top right bottom left) — each value = distance inward from that edge
+    // inset(top right bottom left)
     return `inset(${r.top}px ${vw - r.right}px ${vh - r.bottom}px ${r.left}px)`;
   }
-
-  // Set initial clip to button position (safe: nothing visible outside the button area)
-  gsap.set(overlay, { clipPath: btnClipPath() });
 
   function openNav() {
     if (animating) return;
@@ -488,12 +485,13 @@ function initNav() {
     btn.setAttribute("aria-label", "Menü schließen");
     document.body.classList.add("nav-is-open");
 
-    // Reset links before animating
+    // Reset links
     gsap.killTweensOf([...linkInners, footer]);
     gsap.set(linkInners, { y: "110%" });
     if (footer) gsap.set(footer, { opacity: 0 });
 
-    // Expand overlay from button → fullscreen
+    // Snap clip to button position (imperceptibly small), then expand to fullscreen
+    gsap.set(overlay, { clipPath: btnClipPath() });
     gsap.to(overlay, {
       clipPath: "inset(0px 0px 0px 0px)",
       duration: 0.85,
@@ -501,7 +499,7 @@ function initNav() {
       onComplete: () => { animating = false; },
     });
 
-    // Links cascade in after overlay starts expanding
+    // Links cascade in
     gsap.to(linkInners, {
       y: "0%",
       duration: 1,
@@ -534,7 +532,7 @@ function initNav() {
       gsap.to(footer, { opacity: 0, duration: 0.2, ease: "power2.in" });
     }
 
-    // Shrink overlay back to button position
+    // Shrink overlay back to button position, then clear inline style → CSS takes over
     gsap.to(overlay, {
       clipPath: btnClipPath(),
       duration: 0.75,
@@ -543,6 +541,7 @@ function initNav() {
       onComplete: () => {
         overlay.classList.remove("is-open");
         overlay.setAttribute("aria-hidden", "true");
+        overlay.style.clipPath = ""; // clear inline → CSS inset(0 0 100% 100%) takes over
         animating = false;
       },
     });
