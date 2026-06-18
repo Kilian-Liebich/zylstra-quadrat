@@ -487,10 +487,16 @@ pointer-events: none;
 display: none;
 }
 
+.hero-showcase {
+height: 100dvh;
+max-height: 100dvh;
+}
+
 .hero-showcase__content {
 flex-direction: column;
 justify-content: flex-end;
 padding: 1.5em;
+padding-bottom: max(2em, env(safe-area-inset-bottom, 2em));
 gap: 0.75em;
 }
 
