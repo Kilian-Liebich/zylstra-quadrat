@@ -225,20 +225,8 @@ function initHeroLoadingAnimation() {
 
   tl.call(
     function () {
-      const firstImg = container.querySelector(
-        ".hero-showcase__slide.is-active img",
-      );
-
-      const finish = () => {
-        container.classList.remove("is-loading");
-        window.dispatchEvent(new CustomEvent("heroIntroComplete"));
-      };
-
-      if (firstImg && firstImg.decode) {
-        firstImg.decode().then(finish).catch(finish);
-      } else {
-        finish();
-      }
+      container.classList.remove("is-loading");
+      window.dispatchEvent(new CustomEvent("heroIntroComplete"));
     },
     null,
     "+=0.45",
