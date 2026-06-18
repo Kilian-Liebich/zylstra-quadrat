@@ -452,18 +452,6 @@ background-color: #f4f4f4;
 color: #201d1d;
 position: relative;
 z-index: 5;
-overflow: visible;
-}
-
-.page-panel::before {
-content: "";
-pointer-events: none;
-position: absolute;
-left: 0;
-right: 0;
-top: -3px;
-height: 4px;
-background-color: #f4f4f4;
 }
 
 .page-panel__inner {
