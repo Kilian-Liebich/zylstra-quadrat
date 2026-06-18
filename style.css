@@ -51,7 +51,7 @@ position: fixed;
 top: 0;
 left: 0;
 box-sizing: border-box;
-z-index: 100;
+z-index: 200;
 }
 
 .brand-mark {
@@ -143,6 +143,100 @@ display: flex;
 background-color: currentColor;
 width: 1.45em;
 height: .1em;
+transform-origin: center;
+transition: transform 0.4s cubic-bezier(0.625, 0.05, 0, 1), opacity 0.25s ease;
+}
+
+/* Burger → X when nav is open */
+body.nav-is-open .site-header__menu-line:nth-child(1) {
+transform: translateY(0.4em) rotate(45deg);
+}
+body.nav-is-open .site-header__menu-line:nth-child(2) {
+opacity: 0;
+transform: scaleX(0);
+}
+body.nav-is-open .site-header__menu-line:nth-child(3) {
+transform: translateY(-0.4em) rotate(-45deg);
+}
+
+/* ─── FULLSCREEN NAV OVERLAY ───────────────────────────────────── */
+
+/* Desktop: button center is at (calc(100% - 4em), 3.5em)
+   header padding 2em top, 2.5em right; button 3em × 3em → center = right 4em, top 3.5em */
+.nav-overlay {
+position: fixed;
+inset: 0;
+z-index: 150;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-color: #eaeaea;
+clip-path: circle(0% at calc(100% - 4em) 3.5em);
+transition: clip-path 0.8s cubic-bezier(0.625, 0.05, 0, 1);
+pointer-events: none;
+}
+
+.nav-overlay.is-open {
+clip-path: circle(160% at calc(100% - 4em) 3.5em);
+pointer-events: auto;
+}
+
+.nav-overlay__nav {
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+gap: 0;
+}
+
+/* Each link: outer clips the reveal, inner is the animated element */
+.nav-overlay__link {
+display: block;
+overflow: hidden;
+text-decoration: none;
+color: #201d1d;
+line-height: 1;
+}
+
+.nav-overlay__link-inner {
+display: block;
+font-family: "Instrument Serif", Georgia, serif;
+font-size: clamp(2.75rem, 5.5vw, 6rem);
+font-weight: 400;
+letter-spacing: -.045em;
+line-height: .95;
+padding: .07em 0;
+transform: translateY(110%);
+transition: color 0.2s ease;
+}
+
+.nav-overlay__link:hover .nav-overlay__link-inner {
+color: rgba(32, 29, 29, 0.4);
+}
+
+.nav-overlay__footer {
+position: absolute;
+bottom: 2.5em;
+left: 2.5em;
+right: 2.5em;
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+gap: 1em;
+font-size: 0.875em;
+letter-spacing: -.01em;
+color: #201d1d;
+opacity: 0;
+}
+
+.nav-overlay__footer a {
+color: #201d1d;
+text-decoration: none;
+}
+
+.nav-overlay__footer a:hover {
+text-decoration: underline;
 }
 
 .hero-scroll-stack {
@@ -546,5 +640,27 @@ height: 2.5em;
 
 .hero-showcase__bottom {
 display: none;
+}
+
+/* Mobile: button center at (calc(100% - 3em), 3em) — padding 1.5em, button 3em */
+.nav-overlay {
+clip-path: circle(0% at calc(100% - 3em) 3em);
+}
+
+.nav-overlay.is-open {
+clip-path: circle(160% at calc(100% - 3em) 3em);
+}
+
+.nav-overlay__link-inner {
+font-size: clamp(2rem, 9.5vw, 2.75rem);
+}
+
+.nav-overlay__footer {
+flex-direction: column;
+align-items: flex-start;
+bottom: 2em;
+left: 1.5em;
+right: 1.5em;
+font-size: 0.8em;
 }
 }

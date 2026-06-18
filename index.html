@@ -19,6 +19,32 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+
+    <!-- Fullscreen Nav Overlay -->
+    <div class="nav-overlay" id="nav-overlay" aria-hidden="true">
+      <nav class="nav-overlay__nav">
+        <a href="#" class="nav-overlay__link">
+          <span class="nav-overlay__link-inner">Startseite</span>
+        </a>
+        <a href="#" class="nav-overlay__link">
+          <span class="nav-overlay__link-inner">Planung &amp; Bauleitung</span>
+        </a>
+        <a href="#" class="nav-overlay__link">
+          <span class="nav-overlay__link-inner">Beratung &amp; Sachverstand</span>
+        </a>
+        <a href="#" class="nav-overlay__link">
+          <span class="nav-overlay__link-inner">Portfolio</span>
+        </a>
+        <a href="#" class="nav-overlay__link">
+          <span class="nav-overlay__link-inner">Kontakt</span>
+        </a>
+      </nav>
+      <footer class="nav-overlay__footer">
+        <a href="mailto:planung@zylstraquadrat.com">planung@zylstraquadrat.com</a>
+        <span>Fürstenrieder Str. 245 · 81377 München</span>
+      </footer>
+    </div>
+
     <header class="site-header">
       <a href="#" class="brand-mark" aria-label="Zur Startseite">
         <img
@@ -29,11 +55,16 @@
       </a>
 
       <div class="site-header__actions">
-        <a href="#contact" class="site-header__cta"
+        <a href="#" class="site-header__cta"
           >Zylstra<span class="brand-square">2</span> kennenlernen</a
         >
 
-        <button class="site-header__menu" aria-label="Menü öffnen">
+        <button
+          class="site-header__menu"
+          aria-label="Menü öffnen"
+          aria-expanded="false"
+          aria-controls="nav-overlay"
+        >
           <span class="site-header__menu-icon">
             <span class="site-header__menu-line"></span>
             <span class="site-header__menu-line"></span>
@@ -244,10 +275,10 @@
               </p>
 
               <div class="hero-showcase__cta-row">
-                <a href="#contact" class="hero-showcase__cta is-filled"
+                <a href="#" class="hero-showcase__cta is-filled"
                   >Zylstra<span class="brand-square">2</span> kennenlernen</a
                 >
-                <a href="#more" class="hero-showcase__cta">Projekte ansehen</a>
+                <a href="#" class="hero-showcase__cta">Projekte ansehen</a>
               </div>
             </div>
 

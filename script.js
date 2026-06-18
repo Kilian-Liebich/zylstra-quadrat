@@ -456,9 +456,78 @@ function initHeroContentFadeOnScroll() {
   });
 }
 
+function initNav() {
+  const btn = document.querySelector(".site-header__menu");
+  const overlay = document.getElementById("nav-overlay");
+  if (!btn || !overlay) return;
+
+  const linkInners = Array.from(overlay.querySelectorAll(".nav-overlay__link-inner"));
+  const footer = overlay.querySelector(".nav-overlay__footer");
+  let isOpen = false;
+
+  function openNav() {
+    isOpen = true;
+    overlay.classList.add("is-open");
+    overlay.setAttribute("aria-hidden", "false");
+    btn.setAttribute("aria-expanded", "true");
+    btn.setAttribute("aria-label", "Menü schließen");
+    document.body.classList.add("nav-is-open");
+
+    if (window.gsap) {
+      gsap.killTweensOf(linkInners);
+      gsap.set(linkInners, { y: "110%" });
+      gsap.to(linkInners, {
+        y: "0%",
+        duration: 0.9,
+        ease: "expo.out",
+        stagger: 0.07,
+        delay: 0.2,
+      });
+      if (footer) {
+        gsap.killTweensOf(footer);
+        gsap.to(footer, { opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.55 });
+      }
+    }
+  }
+
+  function closeNav() {
+    isOpen = false;
+    overlay.classList.remove("is-open");
+    overlay.setAttribute("aria-hidden", "true");
+    btn.setAttribute("aria-expanded", "false");
+    btn.setAttribute("aria-label", "Menü öffnen");
+    document.body.classList.remove("nav-is-open");
+
+    if (window.gsap) {
+      gsap.killTweensOf(linkInners);
+      gsap.to(linkInners, {
+        y: "110%",
+        duration: 0.45,
+        ease: "expo.in",
+        stagger: { each: 0.04, from: "end" },
+      });
+      if (footer) {
+        gsap.killTweensOf(footer);
+        gsap.to(footer, { opacity: 0, duration: 0.2, ease: "power2.in" });
+      }
+    }
+  }
+
+  btn.addEventListener("click", () => (isOpen ? closeNav() : openNav()));
+
+  overlay.querySelectorAll(".nav-overlay__link").forEach((link) => {
+    link.addEventListener("click", closeNav);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen) closeNav();
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const startAnimation = () => {
     initLenisSmoothScroll();
+    initNav();
     initHeroLoadingAnimation();
 
     document
