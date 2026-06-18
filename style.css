@@ -483,6 +483,10 @@ opacity: 0;
 pointer-events: none;
 }
 
+.hero-showcase__nav {
+display: none;
+}
+
 .hero-showcase__headline-wrap {
 top: 39%;
 }

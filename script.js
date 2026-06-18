@@ -258,7 +258,6 @@ function initHeroSlideshow(el) {
   function canAutoplay() {
     return (
       length > 1 &&
-      desktopQuery.matches &&
       !reducedMotionQuery.matches &&
       !document.hidden &&
       !autoplayPaused
@@ -387,6 +386,20 @@ function initHeroSlideshow(el) {
       scheduleAutoplay(autoplayDelayAfterInteraction);
     }
   });
+
+  let scrollEndTimer = null;
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      pauseAutoplay();
+      clearTimeout(scrollEndTimer);
+      scrollEndTimer = setTimeout(() => {
+        resumeAutoplay(autoplayDelayAfterInteraction);
+      }, 1000);
+    },
+    { passive: true },
+  );
 
   function syncAutoplayState() {
     if (canAutoplay()) {
