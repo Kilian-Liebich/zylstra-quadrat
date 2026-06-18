@@ -161,19 +161,28 @@ function initHeroLoadingAnimation() {
   }
 
   if (isScaleUp.length) {
-    tl.fromTo(
-      isScaleUp,
-      {
-        width: "10em",
-        height: "10em",
-      },
-      {
-        width: "100vw",
-        height: "100vh",
-        duration: 2,
-      },
-      "< 0.5",
-    );
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+    if (isDesktop) {
+      tl.fromTo(
+        isScaleUp,
+        {
+          width: "10em",
+          height: "10em",
+        },
+        {
+          width: "100vw",
+          height: "100vh",
+          duration: 2,
+        },
+        "< 0.5",
+      );
+    } else {
+      tl.to(
+        container.querySelector(".intro-reveal"),
+        { opacity: 0, duration: 0.5, ease: "power2.inOut" },
+        "< 0.5",
+      );
+    }
   }
 
   if (sliderNav.length) {
@@ -227,6 +236,7 @@ function initHeroLoadingAnimation() {
           .timeline({
             onComplete() {
               container.classList.remove("is-loading");
+              gsap.set(sliderEl, { clearProps: "opacity" });
               window.dispatchEvent(new CustomEvent("heroIntroComplete"));
             },
           })
@@ -237,7 +247,7 @@ function initHeroLoadingAnimation() {
           )
           .to(
             sliderEl,
-            { opacity: 1, duration: 0.3, ease: "power1.inOut", clearProps: "opacity" },
+            { opacity: 1, duration: 0.3, ease: "power1.inOut" },
             0,
           );
       };

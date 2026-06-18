@@ -480,7 +480,8 @@ width: 8em;
 }
 
 .site-header__cta {
-display: none;
+opacity: 0;
+pointer-events: none;
 }
 
 .hero-showcase__headline-wrap {
