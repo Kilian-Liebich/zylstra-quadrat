@@ -500,8 +500,17 @@ padding-left: .24em;
 .hero-showcase__info {
 left: 1.5em;
 right: 1.5em;
-bottom: 7em;
+bottom: 2.5em;
 max-width: none;
+}
+
+.hero-showcase__cta-row {
+flex-direction: column;
+align-items: stretch;
+}
+
+.hero-showcase__cta {
+justify-content: center;
 }
 
 .hero-showcase__lead {
