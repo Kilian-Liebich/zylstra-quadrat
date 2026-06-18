@@ -56,7 +56,7 @@ z-index: 100;
 
 .brand-mark {
 color: currentColor;
-width: 11em;
+width: 14em;
 text-decoration: none;
 justify-content: flex-start;
 align-items: center;
@@ -475,7 +475,7 @@ padding: 1.5em;
 }
 
 .brand-mark {
-width: 8em;
+width: 10em;
 }
 
 .site-header__cta {
