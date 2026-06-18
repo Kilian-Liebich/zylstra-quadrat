@@ -160,9 +160,7 @@ transform: translateY(-0.4em) rotate(-45deg);
 }
 
 /* ─── FULLSCREEN NAV OVERLAY ───────────────────────────────────── */
-
-/* Desktop: button center is at (calc(100% - 4em), 3.5em)
-   header padding 2em top, 2.5em right; button 3em × 3em → center = right 4em, top 3.5em */
+/* clip-path is driven entirely by GSAP (set via inline style) */
 .nav-overlay {
 position: fixed;
 inset: 0;
@@ -172,14 +170,15 @@ flex-direction: column;
 justify-content: center;
 align-items: center;
 background-color: #eaeaea;
-clip-path: circle(0% at calc(100% - 4em) 3.5em);
-transition: clip-path 0.8s cubic-bezier(0.625, 0.05, 0, 1);
 pointer-events: none;
 }
 
 .nav-overlay.is-open {
-clip-path: circle(160% at calc(100% - 4em) 3.5em);
 pointer-events: auto;
+}
+
+body.nav-is-open .brand-mark__img {
+filter: brightness(0);
 }
 
 .nav-overlay__nav {
@@ -640,15 +639,6 @@ height: 2.5em;
 
 .hero-showcase__bottom {
 display: none;
-}
-
-/* Mobile: button center at (calc(100% - 3em), 3em) — padding 1.5em, button 3em */
-.nav-overlay {
-clip-path: circle(0% at calc(100% - 3em) 3em);
-}
-
-.nav-overlay.is-open {
-clip-path: circle(160% at calc(100% - 3em) 3em);
 }
 
 .nav-overlay__link-inner {

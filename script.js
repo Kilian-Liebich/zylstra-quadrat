@@ -459,58 +459,93 @@ function initHeroContentFadeOnScroll() {
 function initNav() {
   const btn = document.querySelector(".site-header__menu");
   const overlay = document.getElementById("nav-overlay");
-  if (!btn || !overlay) return;
+  if (!btn || !overlay || !window.gsap) return;
 
   const linkInners = Array.from(overlay.querySelectorAll(".nav-overlay__link-inner"));
   const footer = overlay.querySelector(".nav-overlay__footer");
   let isOpen = false;
+  let animating = false;
+
+  // Returns inset() clip-path matching the burger button's bounding box
+  function btnClipPath() {
+    const r = btn.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    // inset(top right bottom left) — each value = distance inward from that edge
+    return `inset(${r.top}px ${vw - r.right}px ${vh - r.bottom}px ${r.left}px)`;
+  }
+
+  // Set initial clip to button position (safe: nothing visible outside the button area)
+  gsap.set(overlay, { clipPath: btnClipPath() });
 
   function openNav() {
+    if (animating) return;
     isOpen = true;
+    animating = true;
     overlay.classList.add("is-open");
     overlay.setAttribute("aria-hidden", "false");
     btn.setAttribute("aria-expanded", "true");
     btn.setAttribute("aria-label", "Menü schließen");
     document.body.classList.add("nav-is-open");
 
-    if (window.gsap) {
-      gsap.killTweensOf(linkInners);
-      gsap.set(linkInners, { y: "110%" });
-      gsap.to(linkInners, {
-        y: "0%",
-        duration: 0.9,
-        ease: "expo.out",
-        stagger: 0.07,
-        delay: 0.2,
-      });
-      if (footer) {
-        gsap.killTweensOf(footer);
-        gsap.to(footer, { opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.55 });
-      }
+    // Reset links before animating
+    gsap.killTweensOf([...linkInners, footer]);
+    gsap.set(linkInners, { y: "110%" });
+    if (footer) gsap.set(footer, { opacity: 0 });
+
+    // Expand overlay from button → fullscreen
+    gsap.to(overlay, {
+      clipPath: "inset(0px 0px 0px 0px)",
+      duration: 0.85,
+      ease: "expo.inOut",
+      onComplete: () => { animating = false; },
+    });
+
+    // Links cascade in after overlay starts expanding
+    gsap.to(linkInners, {
+      y: "0%",
+      duration: 1,
+      ease: "expo.out",
+      stagger: 0.07,
+      delay: 0.25,
+    });
+    if (footer) {
+      gsap.to(footer, { opacity: 1, duration: 0.5, ease: "power2.out", delay: 0.65 });
     }
   }
 
   function closeNav() {
+    if (animating) return;
     isOpen = false;
-    overlay.classList.remove("is-open");
-    overlay.setAttribute("aria-hidden", "true");
+    animating = true;
     btn.setAttribute("aria-expanded", "false");
     btn.setAttribute("aria-label", "Menü öffnen");
     document.body.classList.remove("nav-is-open");
 
-    if (window.gsap) {
-      gsap.killTweensOf(linkInners);
-      gsap.to(linkInners, {
-        y: "110%",
-        duration: 0.45,
-        ease: "expo.in",
-        stagger: { each: 0.04, from: "end" },
-      });
-      if (footer) {
-        gsap.killTweensOf(footer);
-        gsap.to(footer, { opacity: 0, duration: 0.2, ease: "power2.in" });
-      }
+    // Links out first
+    gsap.killTweensOf([...linkInners, footer]);
+    gsap.to(linkInners, {
+      y: "110%",
+      duration: 0.35,
+      ease: "expo.in",
+      stagger: { each: 0.04, from: "end" },
+    });
+    if (footer) {
+      gsap.to(footer, { opacity: 0, duration: 0.2, ease: "power2.in" });
     }
+
+    // Shrink overlay back to button position
+    gsap.to(overlay, {
+      clipPath: btnClipPath(),
+      duration: 0.75,
+      ease: "expo.inOut",
+      delay: 0.1,
+      onComplete: () => {
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        animating = false;
+      },
+    });
   }
 
   btn.addEventListener("click", () => (isOpen ? closeNav() : openNav()));
